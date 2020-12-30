@@ -14,15 +14,15 @@ from PIL import Image, ImageDraw
 from xml.dom.minidom import parse
 import numpy as np
 
-FILE_ROOT = f"E:\AI_Project\AI_Learning\Dataset" + "\\"
+FILE_ROOT = f"/home/ruan/Downloads" + "/"
 
-IMAGE_SET_ROOT = FILE_ROOT + f"VOC2028\ImageSets\Main"  # 图片区分文件的路径
-IMAGE_PATH = FILE_ROOT + f"VOC2028\JPEGImages"  # 图片的位置
-ANNOTATIONS_PATH = FILE_ROOT + f"VOC2028\Annotations"  # 数据集标签文件的位置
-LABELS_ROOT = FILE_ROOT + f"VOC2028\Labels"  # 进行归一化之后的标签位置
+IMAGE_SET_ROOT = FILE_ROOT + f"VOC2028/ImageSets/Main"  # 图片区分文件的路径
+IMAGE_PATH = FILE_ROOT + f"VOC2028/JPEGImages"  # 图片的位置
+ANNOTATIONS_PATH = FILE_ROOT + f"VOC2028/Annotations"  # 数据集标签文件的位置
+LABELS_ROOT = FILE_ROOT + f"VOC2028/abels"  # 进行归一化之后的标签位置
 
-DEST_IMAGES_PATH = f"Safety_Helmet_Train_dataset\\score\\images"  # 区分训练集、测试集、验证集的图片目标路径
-DEST_LABELS_PATH = f"Safety_Helmet_Train_dataset\\score\\labels"  # 区分训练集、测试集、验证集的标签文件目标路径
+DEST_IMAGES_PATH = f"Safety_Helmet_Train_dataset/score/images"  # 区分训练集、测试集、验证集的图片目标路径
+DEST_LABELS_PATH = f"Safety_Helmet_Train_dataset/score/labels"  # 区分训练集、测试集、验证集的标签文件目标路径
 
 
 def cord_converter(size, box):
@@ -54,7 +54,7 @@ def cord_converter(size, box):
 
 
 def save_file(img_jpg_file_name, size, img_box):
-    save_file_name = LABELS_ROOT + '\\' + img_jpg_file_name + '.txt'
+    save_file_name = LABELS_ROOT + '/' + img_jpg_file_name + '.txt'
     print(save_file_name)
     file_path = open(save_file_name, "a+")
     for box in img_box:
@@ -92,7 +92,7 @@ def test_dataset_box_feature(file_name, point_array):
 
 
 def get_xml_data(file_path, img_xml_file):
-    img_path = file_path + '\\' + img_xml_file + '.xml'
+    img_path = file_path + '/' + img_xml_file + '.xml'
     print(img_path)
 
     dom = parse(img_path)
@@ -122,16 +122,16 @@ def get_xml_data(file_path, img_xml_file):
 
 
 def copy_data(img_set_source, img_labels_root, imgs_source, type):
-    file_name = img_set_source + '\\' + type + ".txt"
+    file_name = img_set_source + '/' + type + ".txt"
     file = open(file_name)
 
     # 判断文件夹是否存在，不存在则创建
-    root_file = Path(FILE_ROOT + DEST_IMAGES_PATH + '\\' + type)
+    root_file = Path(FILE_ROOT + DEST_IMAGES_PATH + '/' + type)
     if not root_file.exists():
         print(f"Path {root_file} is not exit")
         os.makedirs(root_file)
 
-    root_file = Path(FILE_ROOT + DEST_LABELS_PATH + '\\' + type)
+    root_file = Path(FILE_ROOT + DEST_LABELS_PATH + '/' + type)
     if not root_file.exists():
         print(f"Path {root_file} is not exit")
         os.makedirs(root_file)
@@ -140,8 +140,10 @@ def copy_data(img_set_source, img_labels_root, imgs_source, type):
     for line in file.readlines():
         print(line)
         img_name = line.strip('\n')
-        img_sor_file = imgs_source + '\\' + img_name + '.jpg'
-        label_sor_file = img_labels_root + '\\' + img_name + '.txt'
+        img_sor_file = imgs_source + '/' + img_name + '.jpg'
+        label_sor_file = img_labels_root + '/' + img_name + '.txt'
+        if not os.path.isfile(img_sor_file):
+            img_sor_file = imgs_source + '/' + img_name + '.JPG'
 
         # print(img_sor_file)
         # print(label_sor_file)
@@ -149,13 +151,13 @@ def copy_data(img_set_source, img_labels_root, imgs_source, type):
         # im.show()
 
         # 复制图片
-        DICT_DIR = FILE_ROOT + DEST_IMAGES_PATH + '\\' + type
-        img_dict_file = DICT_DIR + '\\' + img_name + '.jpg'
+        DICT_DIR = FILE_ROOT + DEST_IMAGES_PATH + '/' + type
+        img_dict_file = DICT_DIR + '/' + img_name + '.jpg'
         copyfile(img_sor_file, img_dict_file)
 
         # 复制 label
-        DICT_DIR = FILE_ROOT + DEST_LABELS_PATH + '\\' + type
-        img_dict_file = DICT_DIR + '\\' + img_name + '.txt'
+        DICT_DIR = FILE_ROOT + DEST_LABELS_PATH + '/' + type
+        img_dict_file = DICT_DIR + '/' + img_name + '.txt'
         copyfile(label_sor_file, img_dict_file)
 
 
