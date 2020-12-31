@@ -172,8 +172,8 @@ width_multiple: 0.50  # layer channel multiple
 
 # anchors
 anchors: # <============ 根据 ./data/gen_anchors/anchors.txt 中的 Best Anchors 修改，需要取整（可选）
-  - [14,27, 23,46, 28,130] 
-  - [39,148, 52,186, 62.,279] 
+  - [14,27, 23,46, 28,130]
+  - [39,148, 52,186, 62.,279]
   - [85,237, 88,360, 145,514]
 
 # YOLOv5 backbone
@@ -220,7 +220,7 @@ head:
 这里选择了 `yolov5s` 模型进行训练，权重也是基于 `yolov5s.pt` 来训练
 
 ```shell script
-python train.py --img 640 --batch 16 --epochs 10 --data ./data/custom_data.yaml --cfg ./models/custom_yolov5.yaml --weights ./weights/yolov5s.pt
+python3 train.py --img 640 --batch 1 --epochs 10 --data ./data/custom_data.yaml --cfg ./models/custom_yolov5.yaml --weights ./weights/yolov5s.pt
 ```
 
 其中，`yolov5s.pt` 需要自行下载放在本工程的根目录即可，下载地址 [官方权重](https://drive.google.com/open?id=1Drs_Aiu7xx6S-ix95f9kNsA6ueKRpN2J)
@@ -235,7 +235,7 @@ python train.py --img 640 --batch 16 --epochs 10 --data ./data/custom_data.yaml 
 运行命令：
 ```shell script
 python detect.py --source   0  # webcam
-                            file.jpg  # image 
+                            file.jpg  # image
                             file.mp4  # video
                             path/  # directory
                             path/*.jpg  # glob
@@ -295,7 +295,7 @@ python detect.py --save-txt --source 自己数据集的文件目录 --weights ./
 
 `yolov5` 会推理出所有的分类，并在 `inference/output` 中生成对应图片的 `.txt` 标签文件；
 
-修改 `./data/gen_data/merge_data.py` 中的自己数据集标签所在的路径，执行这个python脚本，会进行 `person` 类型的合并 
+修改 `./data/gen_data/merge_data.py` 中的自己数据集标签所在的路径，执行这个python脚本，会进行 `person` 类型的合并
 
 **如果帮到您请给个 star ✨✨✨，您的 star 是我最大的鼓励！**
 

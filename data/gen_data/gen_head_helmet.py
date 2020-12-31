@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 from xml.dom.minidom import parse
 import numpy as np
 
-FILE_ROOT = f"/home/ruan/Downloads" + "/"
+FILE_ROOT = f"./Dataset" + "/"
 
 IMAGE_SET_ROOT = FILE_ROOT + f"VOC2028/ImageSets/Main"  # 图片区分文件的路径
 IMAGE_PATH = FILE_ROOT + f"VOC2028/JPEGImages"  # 图片的位置
