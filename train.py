@@ -261,7 +261,10 @@ def train(hyp, tb_writer, opt, device):
             print(('\n' + '%10s' * 8) % ('Epoch', 'gpu_mem', 'GIoU', 'obj', 'cls', 'total', 'targets', 'img_size'))
             pbar = tqdm(pbar, total=nb)  # progress bar
         optimizer.zero_grad()
+        print('len pbar ', len(pbar))
+        cnt = 0
         for i, (imgs, targets, paths, _) in pbar:  # batch -------------------------------------------------------------
+            cnt += 1
             ni = i + nb * epoch  # number integrated batches (since train start)
             imgs = imgs.to(device, non_blocking=True).float() / 255.0  # uint8 to float32, 0 - 255 to 0.0 - 1.0
 
@@ -314,7 +317,7 @@ def train(hyp, tb_writer, opt, device):
                 mloss = (mloss * i + loss_items) / (i + 1)  # update mean losses
                 mem = '%.3gG' % (torch.cuda.memory_cached() / 1E9 if torch.cuda.is_available() else 0)  # (GB)
                 s = ('%10s' * 2 + '%10.4g' * 6) % (
-                    '%g/%g' % (epoch, epochs - 1), mem, *mloss, targets.shape[0], imgs.shape[-1])
+                    '%g/%g' % (epoch, epochs - 1), mem, *mloss, targets.shape[0], cnt)
                 pbar.set_description(s)
 
                 # Plot
