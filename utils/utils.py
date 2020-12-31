@@ -57,6 +57,7 @@ def get_latest_run(search_dir='./runs'):
 
 
 def check_git_status():
+    return
     # Suggest 'git pull' if repo is out of date
     if platform in ['linux', 'darwin'] and not os.path.isfile('/.dockerenv'):
         s = subprocess.check_output('if [ -d .git ]; then git fetch && git status -uno; fi', shell=True).decode('utf-8')
