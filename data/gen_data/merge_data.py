@@ -9,8 +9,9 @@
 
 import os
 
-YOLOV5_LABEL_ROOT = f"E:\AI_Project\Smart_Construction_Project\inference\output\\"  # yolov5 导出的推理图片的 txt
-DATASET_LABEL_ROOT = f"E:\AI_Project\AI_Learning\Dataset\VOC2028\Labels\\"  # 数据集的路径
+
+YOLOV5_LABEL_ROOT = f"./inference/output/"  # yolov5 导出的推理图片的 txt
+DATASET_LABEL_ROOT = f"./Dataset/VOC2028/abels/"  # 数据集的路径
 
 if __name__ == '__main__':
     yolo_file = os.listdir(YOLOV5_LABEL_ROOT)
